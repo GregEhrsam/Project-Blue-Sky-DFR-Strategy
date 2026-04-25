@@ -1,4 +1,4 @@
-<!-- Palette: Midnight Tech Vibrant (Slate 900, Sky 400, Rose 500, Emerald 500). Plan Summary: This SPA infographic presents a strategic business plan for expanding Motorola's DFR presence in the upper Midwest (OH, MI, WI, MN, ND, SD). It identifies the top 10 "white space" agencies with strong existing Motorola infrastructure but no competing DFR solution. The narrative flows from macro regional opportunity to specific target identification, and concludes with a strategic action plan. Choices Summary: 1. Regional Market Status -> Goal: Compare -> Visualization: Donut Chart -> Justification: Clearly illustrates the massive "white space" opportunity against existing Axon/Skydio penetration. (Chart.js, NO SVG). 2. Addressable Market by State -> Goal: Compare -> Visualization: Horizontal Bar Chart -> Justification: Ranks states by potential DFR deployment scale. (Chart.js, NO SVG). 3. Top 10 Target Matrix -> Goal: Relationships -> Visualization: Bubble Chart -> Justification: Maps agency size against Motorola infrastructure score to prioritize targets. (Chart.js, NO SVG). 4. 2026 Target SAM by Revenue Stream -> Goal: Compare -> Visualization: Bar Chart -> Justification: Illustrates the projected $55M SAM breakdown across Hardware, Software & Cloud, and Services. (Chart.js, NO SVG). Explicitly confirm that NEITHER Mermaid JS NOR SVG were used anywhere in the output within the HTML comments. -->
+<!-- Palette: Midnight Tech Vibrant (Slate 900, Sky 400, Rose 500, Emerald 500). Plan Summary: This SPA infographic presents a strategic business plan for expanding Motorola's DFR presence in the upper Midwest. It identifies the top 10 "white space" agencies, outlines financial opportunities, and maps a go-to-market plan. Choices Summary: 1. Regional Market Status -> Goal: Compare -> Visualization: Donut Chart -> Justification: Clearly illustrates the massive "white space" opportunity. (Chart.js, NO SVG). 2. Addressable Market by State -> Goal: Compare -> Visualization: Horizontal Bar Chart -> Justification: Ranks states by potential scale. (Chart.js, NO SVG). 3. Top 10 Target Matrix -> Goal: Relationships -> Visualization: Bubble Chart -> Justification: Maps agency size against Motorola infrastructure score. (Chart.js, NO SVG). 4. T5 North Market 5-Year TCV -> Goal: Compare -> Visualization: Bar Chart -> Justification: Breaks down the 5-Year TCV across hardware tiers. (Chart.js, NO SVG). 5. Central NA Pipeline Summary -> Goal: Change/Compare -> Visualization: Grouped Bar Chart -> Justification: Breaks down Commit, Upside, and Non-Commit pipeline by quarter to highlight acceleration needs. (Chart.js, NO SVG). Explicitly confirm that NEITHER Mermaid JS NOR SVG were used anywhere in the output within the HTML comments. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,8 +143,24 @@ body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Robot
         </div>
     </section>
 
+    <section class="glass-card p-6 md:p-8 border-l-4 border-emerald-400 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-4 opacity-10 text-8xl">📊</div>
+        <h3 class="text-2xl font-bold mb-4 text-white border-b border-slate-700 pb-2">4. Central NA Airspace Ops (2026): Pipeline Acceleration</h3>
+        <p class="text-slate-300 mb-6 leading-relaxed relative z-10">
+            The data from the Central NA 2026 pipeline reveals a heavy concentration of early-stage opportunities sitting in <strong>Non-Commit</strong>. Our executive mandate is clear: we must actively accelerate these deals into the <strong>Upside</strong> and <strong>Commit</strong> stages. By relentlessly anchoring our sales motion to the proven Motorola ecosystem discussed above (APX NEXT, SVX, Aware), we provide the operational synergy required to close these deals, unlocking a clear <strong>pathway to over $10 Million in 25 North / T5 North</strong>.
+        </p>
+
+        <div class="flex flex-col w-full relative z-10">
+            <h4 class="text-lg font-semibold text-sky-300 mb-2 text-center">2026 Pipeline Distribution by Quarter</h4>
+            <p class="text-sm text-slate-400 text-center mb-6">Targeting the massive Non-Commit volume to drive $10M+ in localized bookings.</p>
+            <div class="chart-container" style="max-width: 900px; height: 400px;">
+                <canvas id="pipelineChart"></canvas>
+            </div>
+        </div>
+    </section>
+
     <section class="glass-card p-6 md:p-8">
-        <h3 class="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">4. Go-To-Market Execution Flow</h3>
+        <h3 class="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">5. Go-To-Market Execution Flow</h3>
         
         <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-4">
             
@@ -217,7 +233,6 @@ const commonOptions = {
     }
 };
 
-// Use DOMContentLoaded to ensure elements are available before initializing charts
 document.addEventListener('DOMContentLoaded', () => {
     const marketStatusCanvas = document.getElementById('marketStatusChart');
     if (marketStatusCanvas) {
@@ -337,6 +352,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 scales: {
                     y: {
                         title: { display: true, text: '5-Year TCV (USD Millions)', color: '#f8fafc' },
+                        grid: { color: '#1e293b' },
+                        ticks: { 
+                            color: '#94a3b8',
+                            callback: function(value) { return '$' + value + 'M'; }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+    }
+
+    const pipelineCanvas = document.getElementById('pipelineChart');
+    if (pipelineCanvas) {
+        new Chart(pipelineCanvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'],
+                datasets: [
+                    {
+                        label: 'Commit',
+                        data: [0.1, 0.4, 0.2, 0.0],
+                        backgroundColor: '#10b981', // Emerald 500
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Upside',
+                        data: [0.2, 1.0, 1.5, 2.1],
+                        backgroundColor: '#38bdf8', // Sky 400
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Non-Commit (Acceleration Target)',
+                        data: [0.8, 3.5, 5.0, 11.4],
+                        backgroundColor: '#64748b', // Slate 500 (representing work to be done)
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    legend: { display: true, position: 'top', labels: { color: '#f8fafc' } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': $' + context.parsed.y + 'M';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: 'Pipeline Value (USD Millions)', color: '#f8fafc' },
                         grid: { color: '#1e293b' },
                         ticks: { 
                             color: '#94a3b8',
