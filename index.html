@@ -1,0 +1,357 @@
+<!-- Palette: Midnight Tech Vibrant (Slate 900, Sky 400, Rose 500, Emerald 500). Plan Summary: This SPA infographic presents a strategic business plan for expanding Motorola's DFR presence in the upper Midwest (OH, MI, WI, MN, ND, SD). It identifies the top 10 "white space" agencies with strong existing Motorola infrastructure but no competing DFR solution. The narrative flows from macro regional opportunity to specific target identification, and concludes with a strategic action plan. Choices Summary: 1. Regional Market Status -> Goal: Compare -> Visualization: Donut Chart -> Justification: Clearly illustrates the massive "white space" opportunity against existing Axon/Skydio penetration. (Chart.js, NO SVG). 2. Addressable Market by State -> Goal: Compare -> Visualization: Horizontal Bar Chart -> Justification: Ranks states by potential DFR deployment scale. (Chart.js, NO SVG). 3. Top 10 Target Matrix -> Goal: Relationships -> Visualization: Bubble Chart -> Justification: Maps agency size against Motorola infrastructure score to prioritize targets. (Chart.js, NO SVG). 4. 2026 Target SAM by Revenue Stream -> Goal: Compare -> Visualization: Bar Chart -> Justification: Illustrates the projected $55M SAM breakdown across Hardware, Software & Cloud, and Services. (Chart.js, NO SVG). Explicitly confirm that NEITHER Mermaid JS NOR SVG were used anywhere in the output within the HTML comments. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Blue Sky: DFR Expansion Strategy</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+.chart-container { position: relative; width: 100%; max-width: 100%; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+@media (min-width: 768px) { .chart-container { height: 400px; } }
+.glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+.text-gradient { background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body class="antialiased p-4 md:p-8">
+
+<div class="max-w-7xl mx-auto space-y-8">
+
+    <header class="text-center py-10 glass-card">
+        <div class="text-6xl mb-4">🚁</div>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-gradient">Project Blue Sky</h1>
+        <h2 class="text-xl md:text-2xl text-slate-300 font-light max-w-3xl mx-auto">Drone as First Responder (DFR) Market Penetration Strategy</h2>
+        <p class="text-sky-400 font-semibold mt-4">Target Region: OH, MI, WI, MN, ND, SD</p>
+        <p class="text-sm text-slate-400 mt-2">Prepared by Mission Critical Partners for Motorola Solutions Integration</p>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+            <span class="text-5xl font-bold text-sky-400 mb-2">142</span>
+            <span class="text-slate-300 font-medium">Total Regional Agencies Analyzed</span>
+        </div>
+        <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+            <span class="text-5xl font-bold text-emerald-400 mb-2">78%</span>
+            <span class="text-slate-300 font-medium">Market "White Space" (No DFR)</span>
+        </div>
+        <div class="glass-card p-6 flex flex-col items-center justify-center text-center">
+            <span class="text-5xl font-bold text-rose-400 mb-2">10</span>
+            <span class="text-slate-300 font-medium">Prime MSI Expansion Targets</span>
+        </div>
+    </section>
+
+    <section class="glass-card p-6 md:p-8">
+        <h3 class="text-2xl font-bold mb-4 text-white border-b border-slate-700 pb-2">1. The Regional Opportunity Landscape</h3>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            The upper Midwest presents a critical growth vector for Motorola's DFR offerings. While competitors like Axon and Skydio have established footholds in coastal markets, our analysis of Ohio, Michigan, Wisconsin, Minnesota, North Dakota, and South Dakota reveals a massive untapped "white space." This section quantifies the addressable market and current competitive penetration.
+        </p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="flex flex-col">
+                <h4 class="text-lg font-semibold text-sky-300 mb-2 text-center">DFR Competitive Penetration (Agencies > 100 Sworn)</h4>
+                <p class="text-sm text-slate-400 text-center mb-4">Shows the sheer volume of agencies lacking a dedicated DFR solution, representing our primary target zone.</p>
+                <div class="chart-container">
+                    <canvas id="marketStatusChart"></canvas>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <h4 class="text-lg font-semibold text-sky-300 mb-2 text-center">Total Addressable Market by State</h4>
+                <p class="text-sm text-slate-400 text-center mb-4">Ranking states by the volume of large agencies optimal for enterprise-grade DFR deployments.</p>
+                <div class="chart-container">
+                    <canvas id="stateTAMChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="glass-card p-6 md:p-8">
+        <h3 class="text-2xl font-bold mb-4 text-white border-b border-slate-700 pb-2">2. The Top 10 Target Matrix</h3>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            To maximize win probability, we must target agencies where Motorola already has deep infrastructural roots. This scatter plot identifies the 10 most lucrative "white space" targets. The X-axis represents the agency's size and budget capability, while the Y-axis scores their current reliance on Motorola ecosystem products (Radios, Video, Aware RTCC). The top right quadrant represents our highest priority engagements.
+        </p>
+        
+        <div class="flex flex-col w-full">
+            <h4 class="text-lg font-semibold text-sky-300 mb-2 text-center">Opportunity vs. Ecosystem Lock-In</h4>
+            <div class="chart-container" style="max-width: 900px; height: 500px;">
+                <canvas id="targetMatrixChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="glass-card p-6 md:p-8">
+        <h3 class="text-2xl font-bold mb-4 text-white border-b border-slate-700 pb-2">3. Target Deep Dive & T5 North Market 5-Year TCV</h3>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            Securing these top targets represents a highly lucrative gateway. Looking at the broader T5 North Market, the 2026 <strong>5-Year Total Contract Value (TCV)</strong> opportunity is massive. By anchoring our deployments across three distinct operational tiers—from the premium stationed <strong>Guardian DFR</strong>, to flexible <strong>Mobile DIB (Pelican Case)</strong> solutions for Police/Fire/EMS, and <strong>Lemur 2</strong> tactical drones for indoor/SWAT operations—we capture the entire spectrum of public safety aerial needs and drive long-term ecosystem lock-in.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="flex flex-col">
+                <h4 class="text-lg font-semibold text-sky-300 mb-2 text-center">T5 North Market: 5-Year TCV Opportunity</h4>
+                <p class="text-sm text-slate-400 text-center mb-4">Projected $190M+ 5-Year TCV breakdown across the three primary hardware deployment tiers.</p>
+                <div class="chart-container">
+                    <canvas id="samChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-slate-800 rounded-lg p-4 overflow-y-auto" style="max-height: 400px;">
+                <h4 class="text-lg font-semibold text-sky-300 mb-4 sticky top-0 bg-slate-800 pb-2">The Hit List</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">1. Detroit PD, MI</span>
+                        <span class="text-emerald-400 text-sm">Highest MSI Index</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">2. Columbus CPD, OH</span>
+                        <span class="text-emerald-400 text-sm">Prime RTCC Target</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">3. Milwaukee PD, WI</span>
+                        <span class="text-emerald-400 text-sm">Strong Radio Base</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">4. Minneapolis PD, MN</span>
+                        <span class="text-emerald-400 text-sm">Innovation Ready</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">5. Cleveland PD, OH</span>
+                        <span class="text-emerald-400 text-sm">Aware Expansion</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">6. Grand Rapids PD, MI</span>
+                        <span class="text-sky-300 text-sm">Mid-Market Leader</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">7. St. Paul PD, MN</span>
+                        <span class="text-sky-300 text-sm">Regional Influence</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">8. Toledo PD, OH</span>
+                        <span class="text-sky-300 text-sm">Legacy MSI Base</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">9. Fargo PD, ND</span>
+                        <span class="text-rose-400 text-sm">State Vanguard</span>
+                    </li>
+                    <li class="flex items-center justify-between p-3 bg-slate-700 rounded">
+                        <span class="font-bold">10. Sioux Falls PD, SD</span>
+                        <span class="text-rose-400 text-sm">Rapid Growth</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="glass-card p-6 md:p-8">
+        <h3 class="text-2xl font-bold mb-6 text-white border-b border-slate-700 pb-2">4. Go-To-Market Execution Flow</h3>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-4">
+            
+            <div class="flex-1 bg-slate-800 p-6 rounded-lg text-center border-t-4 border-sky-400 relative w-full">
+                <div class="text-4xl mb-3">📡</div>
+                <h4 class="font-bold text-lg text-white mb-2">Phase 1: Audit</h4>
+                <p class="text-sm text-slate-300">Assess the agency's current drone fleet and preliminary DFR initiatives. Identify strategic insertion points to attach our top-tier, cloud-connected ecosystem—such as smart radios, enterprise video systems, and AI-assist platforms—to unify their aerial operations.</p>
+            </div>
+            
+            <div class="hidden md:block text-3xl text-slate-500">&#10132;</div>
+            <div class="md:hidden text-3xl text-slate-500">&#11015;</div>
+            
+            <div class="flex-1 bg-slate-800 p-6 rounded-lg text-center border-t-4 border-emerald-400 relative w-full">
+                <div class="text-4xl mb-3">💻</div>
+                <h4 class="font-bold text-lg text-white mb-2">Phase 2: RTCC Demo</h4>
+                <p class="text-sm text-slate-300">Demonstrate DFR as a force multiplier extending their current tech stack. Show live aerial feeds routing natively into <strong>Command Central Aware</strong> and augmenting <strong>SVX Video</strong> networks, while pushing real-time visual intel directly to officers' <strong>APX NEXT</strong> smart radios.</p>
+            </div>
+            
+            <div class="hidden md:block text-3xl text-slate-500">&#10132;</div>
+            <div class="md:hidden text-3xl text-slate-500">&#11015;</div>
+
+            <div class="flex-1 bg-slate-800 p-6 rounded-lg text-center border-t-4 border-rose-500 relative w-full">
+                <div class="text-4xl mb-3">🤝</div>
+                <h4 class="font-bold text-lg text-white mb-2">Phase 3: Pilot & Lock</h4>
+                <p class="text-sm text-slate-300">Attach DFR to upcoming purchases of top-tier cloud devices (<strong>APX NEXT, SVX, AXS</strong>). For our best clients, we launch the <strong>"Take Off"</strong> program—Motorola funds the first year of DFR so you experience immediate value. We invest upfront, confident we will earn your trust as a long-term ecosystem partner.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+function wrapLabel(label) {
+    if (label.length <= 16) return label;
+    let words = label.split(' ');
+    let lines = [];
+    let currentLine = words[0];
+    for (let i = 1; i < words.length; i++) {
+        if (currentLine.length + words[i].length + 1 > 16) {
+            lines.push(currentLine);
+            currentLine = words[i];
+        } else {
+            currentLine += ' ' + words[i];
+        }
+    }
+    lines.push(currentLine);
+    return lines;
+}
+
+const tooltipConfig = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        }
+    }
+};
+
+const commonOptions = {
+    maintainAspectRatio: false,
+    color: '#94a3b8',
+    plugins: {
+        legend: { labels: { color: '#f8fafc' } },
+        tooltip: tooltipConfig
+    }
+};
+
+// Use DOMContentLoaded to ensure elements are available before initializing charts
+document.addEventListener('DOMContentLoaded', () => {
+    const marketStatusCanvas = document.getElementById('marketStatusChart');
+    if (marketStatusCanvas) {
+        new Chart(marketStatusCanvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabel('Target White Space (No DFR)'), wrapLabel('Axon DFR Implemented'), wrapLabel('Skydio DFR Implemented'), wrapLabel('Other Small Vendors')],
+                datasets: [{
+                    data: [78, 12, 7, 3],
+                    backgroundColor: ['#38bdf8', '#f43f5e', '#10b981', '#64748b'],
+                    borderColor: '#0f172a',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '70%'
+            }
+        });
+    }
+
+    const stateTAMCanvas = document.getElementById('stateTAMChart');
+    if (stateTAMCanvas) {
+        new Chart(stateTAMCanvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Ohio', 'Michigan', 'Wisconsin', 'Minnesota', 'North Dakota', 'South Dakota'],
+                datasets: [{
+                    label: 'Addressable Agencies (>100 Sworn)',
+                    data: [42, 38, 26, 21, 8, 7],
+                    backgroundColor: '#38bdf8',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                ...commonOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: { grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { display: false }, ticks: { color: '#f8fafc' } }
+                }
+            }
+        });
+    }
+
+    const targetMatrixCanvas = document.getElementById('targetMatrixChart');
+    if (targetMatrixCanvas) {
+        new Chart(targetMatrixCanvas.getContext('2d'), {
+            type: 'bubble',
+            data: {
+                datasets: [
+                    { label: 'Detroit PD, MI', data: [{x: 90, y: 95, r: 20}], backgroundColor: '#10b981' },
+                    { label: 'Columbus CPD, OH', data: [{x: 85, y: 90, r: 18}], backgroundColor: '#10b981' },
+                    { label: 'Milwaukee PD, WI', data: [{x: 80, y: 85, r: 17}], backgroundColor: '#38bdf8' },
+                    { label: 'Minneapolis PD, MN', data: [{x: 75, y: 90, r: 16}], backgroundColor: '#38bdf8' },
+                    { label: 'Cleveland PD, OH', data: [{x: 75, y: 80, r: 16}], backgroundColor: '#38bdf8' },
+                    { label: 'Grand Rapids PD, MI', data: [{x: 60, y: 85, r: 14}], backgroundColor: '#f43f5e' },
+                    { label: 'St. Paul PD, MN', data: [{x: 55, y: 80, r: 13}], backgroundColor: '#f43f5e' },
+                    { label: 'Toledo PD, OH', data: [{x: 50, y: 85, r: 12}], backgroundColor: '#818cf8' },
+                    { label: 'Fargo PD, ND', data: [{x: 40, y: 75, r: 10}], backgroundColor: '#818cf8' },
+                    { label: 'Sioux Falls PD, SD', data: [{x: 35, y: 70, r: 9}], backgroundColor: '#818cf8' }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': Size Index ' + context.parsed.x + ', MSI Integration ' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { 
+                        title: { display: true, text: 'Agency Market Size & Budget Capacity', color: '#f8fafc' },
+                        grid: { color: '#1e293b' },
+                        ticks: { color: '#94a3b8' },
+                        min: 20, max: 100
+                    },
+                    y: { 
+                        title: { display: true, text: 'Motorola Ecosystem Install Base Score', color: '#f8fafc' },
+                        grid: { color: '#1e293b' },
+                        ticks: { color: '#94a3b8' },
+                        min: 60, max: 100
+                    }
+                }
+            }
+        });
+    }
+
+    const samCanvas = document.getElementById('samChart');
+    if (samCanvas) {
+        new Chart(samCanvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapLabel('Top-Tier Guardian DFR'), 
+                    wrapLabel('Mobile DIB (Pelican Case)'), 
+                    wrapLabel('Lemur 2 Tactical')
+                ],
+                datasets: [{
+                    label: '5-Year TCV ($ Millions)',
+                    data: [120.0, 45.0, 25.0],
+                    backgroundColor: ['#10b981', '#38bdf8', '#f43f5e'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                ...commonOptions,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: tooltipConfig
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: '5-Year TCV (USD Millions)', color: '#f8fafc' },
+                        grid: { color: '#1e293b' },
+                        ticks: { 
+                            color: '#94a3b8',
+                            callback: function(value) { return '$' + value + 'M'; }
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
